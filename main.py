@@ -8,14 +8,12 @@ from typing import List
 
 from preprocessing import CarPricePredictorPreprocessor
 
-
 app = FastAPI()
 
 
 class Item(BaseModel):
     name: str
     year: int
-    selling_price: int
     km_driven: int
     fuel: str
     seller_type: str
@@ -50,6 +48,7 @@ def predict_price(item: Item) -> float:
     return preprocessor.ridge_regressor.predict(processed_df)[0]
     # return processed_df
 
+
 def predict_prices(items: Items) -> List[float]:
     """
     Predict prices for a list of items.
@@ -60,9 +59,10 @@ def predict_prices(items: Items) -> List[float]:
     Returns:
         List[float]: The predicted prices.
     """
-    df = pd.DataFrame([item.model_dump() for item in items.objects])
+    df = pd.DataFrame([item.dict() for item in items.objects])
     processed_df = preprocessor.preprocess_data(df)
     return preprocessor.ridge_regressor.predict(processed_df).tolist()
+
 
 @app.get(path="/")
 async def root():
@@ -107,6 +107,24 @@ async def predict_items(items: Items) -> List[float]:
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# @app.post("/predict_file")
+# async def predict_file(file: UploadFile) -> List[dict]:
+#     """
+#     Predict prices from a CSV file.
+#
+#     Args:
+#         file (UploadFile): The input file.
+#
+#     Returns:
+#         List[float]: The predicted prices.
+#     """
+#     try:
+#         df = pd.read_csv(file.file)
+#         processed_df = preprocessor.preprocess_data(df)
+#         return preprocessor.ridge_regressor.predict(processed_df).tolist()
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/predict_file")
 async def predict_file(file: UploadFile) -> List[dict]:
     """
@@ -116,12 +134,18 @@ async def predict_file(file: UploadFile) -> List[dict]:
         file (UploadFile): The input file.
 
     Returns:
-        List[float]: The predicted prices.
+        List[dict]: The predicted prices with input data.
     """
     try:
         df = pd.read_csv(file.file)
         processed_df = preprocessor.preprocess_data(df)
-        return preprocessor.ridge_regressor.predict(processed_df).tolist()
+        predictions = preprocessor.ridge_regressor.predict(processed_df).tolist()
+
+        # Combine input data with predictions
+        result = []
+        for _, row in df.iterrows():
+            result.append({"input_data": row.to_dict(), "predicted_price": predictions.pop(0)})
+
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-

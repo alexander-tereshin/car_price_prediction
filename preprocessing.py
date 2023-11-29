@@ -1,10 +1,10 @@
 import pickle
 
 import pandas as pd
-import numpy as np
+# import numpy as np
 
 from sklearn.preprocessing import PolynomialFeatures
-from typing import Dict
+# from typing import Dict
 
 
 class CarPricePredictorPreprocessor:
@@ -40,7 +40,6 @@ class CarPricePredictorPreprocessor:
                                      columns=df_real.columns)
 
         df_real_no_na[['engine', 'seats']] = df_real_no_na[['engine', 'seats']].astype('int')
-        df_real_no_na.drop(labels='selling_price', axis=1, inplace=True)
 
         poly = PolynomialFeatures(degree=3, interaction_only=False, include_bias=False)
 
@@ -60,4 +59,3 @@ class CarPricePredictorPreprocessor:
         df_final.columns = self.ridge_regressor.best_estimator_.feature_names_in_
 
         return df_final
-
