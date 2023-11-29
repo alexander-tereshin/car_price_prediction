@@ -1,1 +1,103 @@
-# car_price_prediction
+# Car Price Prediction API
+A FastAPI application for predicting car prices based on Linear Regression Model. This project is developed for the ML and High Load Systems course at the Higher School of Economics.
+
+
+Features
+---
+* **Predict Car Prices** - Submit features of a car and get a predicted selling price.
+
+* **Batch Predictions** - Upload a CSV file or list of features with multiple car records and get predicted prices for each.
+
+Requirements
+---
+
+* Python 3.9+
+* FastAPI
+* Uvicorn (for running the FastAPI application)
+* Scikit-learn (for machine learning models)
+* Pandas (for data manipulation)
+* NumPy (for numerical operations)
+  
+Installation
+----
+1. Clone the repository:
+
+```bash
+$ git clone https://github.com/your-username/carprice-api.git
+```
+2. Install the required dependencies:
+
+```bash
+$ pip install -r requirements.txt
+```
+
+Usage
+---
+
+Run the FastAPI application using Uvicorn:
+
+```bash
+$ uvicorn main:app --reload
+```
+
+API Endpoints
+---
+
+* **POST /predict_item** - Predict the price for a single car.
+* **POST /predict_items** - Predict prices for a list of cars.
+* **POST /predict_file** - Predict prices from a CSV file.
+
+For more details about the API endpoints and the request/response formats, refer to the Swagger documentation provided when you run the application.
+
+ML model and research part RUS
+---
+
+1. Постановка Задачи:
+* Определение цели проекта: построение модели для предсказания цены на автомобили.
+* Использование набора данных с информацией о характеристиках автомобилей и их ценах.
+2. Исследование Данных:
+* Проведен анализ структуры данных и определение признаков, которые могут влиять на цену автомобиля. Выявлена кубическая зависимость цены от года, добавлен полином третьей степени от года в набор признаков. Из названия автомобиля получен бренд автомобиля. В совокупности, после этапа feature engineering удалось получить рост R2 на ~0.14.
+3. Обработка пропущенных значений и выбросов в данных.
+Предобработка Данных:
+* Создан пайплайн для обработки категориальных и числовых признаков.
+* Обработаны пропуски медианами распределения признаков полученных на обучающем наборе данных.
+* Применен StandartScaler для масштабирования признаков.
+* Применено кодирование категориальных признаков методом OneHot.
+4. Обучение Модели:
+* Использована модель Ridge регрессии для предсказания цен.
+* Подобраны оптимальные параметры модели с использованием GridSearchCV.
+5. Развертывание API:
+* Создан FastAPI веб-сервис для предсказания цен на автомобили.
+* Реализованы эндпоинты для предсказаний по одному объекту, списку объектов и загруженному CSV файлу.
+6. Результаты
+**Метрики модели:**
+* r2_test 0.7899742432822014
+* r2_train 0.7800161453614767 
+* mse_test 120728802380.96346
+* mse_train 63055806559.14916
+**Параметры модели:**
+* 'alpha': 0.0001
+7.API Сервис:
+* API успешно развернут и доступен для использования.
+* Проект структурирован и легко масштабируется для будущих улучшений.
+**Скриншоты работы**
+* **POST /predict_file** - Predict prices from a CSV file.
+  
+<img width="1012" alt="Screenshot 2023-11-30 at 01 25 26" src="https://github.com/alexander-tereshin/car_price_prediction/assets/107271811/eddce954-036a-43a3-9eea-061ee34af509">
+
+* **POST /predict_items** - Predict prices for a list of cars.
+  
+<img width="1448" alt="Screenshot 2023-11-30 at 00 37 54" src="https://github.com/alexander-tereshin/car_price_prediction/assets/107271811/d846d1e4-5738-4386-b1a0-711f9d575425">
+
+* **POST /predict_file** - Predict prices from a CSV file.
+  
+<img width="1609" alt="Screenshot 2023-11-30 at 00 39 07" src="https://github.com/alexander-tereshin/car_price_prediction/assets/107271811/c684ecfe-1964-4ce1-992c-3a6c7dd84f91">
+
+8. Наибольший Буст в качестве
+* добавление полинома третьей степени от года
+* добавление бренда автомобиля
+9. Вывод
+* Проект позволил разработать и развернуть модель предсказания цен на автомобили с использованием веб-сервиса. Несмотря на некоторые ограничения, удалось добиться хороших результатов и создать удобный механизм для будущего улучшения модели и сервиса.
+License
+---
+This project is licensed under the terms of the MIT license.
