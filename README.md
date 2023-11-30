@@ -6,7 +6,7 @@ Features
 ---
 * **Predict Car Prices** - Submit features of a car and get a predicted selling price.
 
-* **Batch Predictions** - Upload a CSV file or list of features with multiple car records and get predicted prices for each.
+* **Batch Predictions** - Upload a CSV file or submit list of features with multiple car records and get predicted prices for each.
 
 Requirements
 ---
