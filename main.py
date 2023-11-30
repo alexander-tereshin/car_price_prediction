@@ -107,23 +107,6 @@ async def predict_items(items: Items) -> List[float]:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# @app.post("/predict_file")
-# async def predict_file(file: UploadFile) -> List[dict]:
-#     """
-#     Predict prices from a CSV file.
-#
-#     Args:
-#         file (UploadFile): The input file.
-#
-#     Returns:
-#         List[float]: The predicted prices.
-#     """
-#     try:
-#         df = pd.read_csv(file.file)
-#         processed_df = preprocessor.preprocess_data(df)
-#         return preprocessor.ridge_regressor.predict(processed_df).tolist()
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/predict_file")
 async def predict_file(file: UploadFile) -> List[dict]:
