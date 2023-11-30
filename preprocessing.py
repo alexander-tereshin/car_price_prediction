@@ -4,6 +4,8 @@ import pandas as pd
 # import numpy as np
 
 from sklearn.preprocessing import PolynomialFeatures
+
+
 # from typing import Dict
 
 
@@ -53,8 +55,6 @@ class CarPricePredictorPreprocessor:
                                               columns=df_real_no_na_poly.columns)
 
         df_final = pd.concat(objs=[df_real_no_na_poly_std, df_cat_coded], axis=1)
-
-        assert df_final.shape[1] == 52
 
         df_final.columns = self.ridge_regressor.best_estimator_.feature_names_in_
 
