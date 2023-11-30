@@ -82,9 +82,10 @@ ML model and research part RUS
 * Проект структурирован и легко масштабируется для будущих улучшений.
   
 **Скриншоты работы**
-* **POST /predict_file** - Predict prices from a CSV file.
+* **POST /predict_item** - Predict the price for a single car.
   
-<img width="1012" alt="Screenshot 2023-11-30 at 01 25 26" src="https://github.com/alexander-tereshin/car_price_prediction/assets/107271811/eddce954-036a-43a3-9eea-061ee34af509">
+<img width="1609" alt="Screenshot 2023-11-30 at 00 39 07" src="https://github.com/alexander-tereshin/car_price_prediction/assets/107271811/4a79487e-62f4-4752-b776-924723773025">
+
 
 * **POST /predict_items** - Predict prices for a list of cars.
   
