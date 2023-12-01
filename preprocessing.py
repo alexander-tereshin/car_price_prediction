@@ -1,12 +1,8 @@
 import pickle
 
 import pandas as pd
-# import numpy as np
 
 from sklearn.preprocessing import PolynomialFeatures
-
-
-# from typing import Dict
 
 
 class CarPricePredictorPreprocessor:
